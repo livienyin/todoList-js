@@ -1,3 +1,11 @@
+$(document).ready(function(){
+
+$(function() {
+  $('#add').on('click', addListItem);
+  $(document).on('click', '.delete', deleteItem);
+  $(document).on('click', '.done', finishItem);
+});
+
 function addListItem() {
   var text = $('#new-text').val();
   var listElement = $('<li />');
@@ -28,11 +36,4 @@ function deleteItem() {
   listElement.slideUp(400, function() {listElement.remove()});
 }
 
-$(function() {
-  $('#add').on('click', addListItem);
-  $(document).on('click', '.delete', deleteItem);
-  $(document).on('click', '.done', finishItem);
 });
-
-
-
