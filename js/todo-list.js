@@ -1,24 +1,31 @@
 function addListItem() {
   var text = $('#new-text').val();
-  var listElement = '<li><input type="checkbox" class="done" />'+text+' <button class="delete">Delete</button></li>';
+  var listElement = $('<li />');
+  $('<input />').attr('type', 'checkbox').attr('class', 'done').appendTo(listElement);
+  listElement.append(text);
+  $('<i />').attr('class', 'icon-remove-sign delete').appendTo(listElement);
   $('#todo').append(listElement);
+  listElement.hide().fadeIn();
   $('#new-text').val(''); 
 }
 
 function finishItem() {
-  if( $(this).parent().css('textDecoration') === 'line-through' ){
-    $(this).parent().css('textDecoration', 'none');
-    $(this).parent().css('color', 'black');
-    $('#todo').append($(this).parent());
+  listElement = $(this).parent();
+  if(listElement.css('textDecoration') === 'line-through' ){
+    listElement.css('textDecoration', 'none');
+    listElement.css('color', 'black');
+    $('#todo').append(listElement);
   } else {
-    $(this).parent().css('textDecoration', 'line-through');
-    $(this).parent().css('color', 'red');
-    $('#completed').append($(this).parent());
+    listElement.css('textDecoration', 'line-through');
+    listElement.css('color', 'red');
+    $('#completed').append(listElement);
   }
+  listElement.hide().fadeIn();
 }
 
 function deleteItem() {
-  $(this).parent().remove();
+  listElement = $(this).parent();
+  listElement.slideUp(400, function() {listElement.remove()});
 }
 
 $(function() {
